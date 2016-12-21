@@ -47,8 +47,8 @@ class Poem(object):
             return False
         
         for i in range(0, self.howLong-1):
-		wordWithSign = (self.dictionary[self.resultWords[i]] + self.resultSigns[i]).encode('utf-8')
-		sys.stdout.write(wordWithSign)
+		    wordWithSign = (self.dictionary[self.resultWords[i]] + self.resultSigns[i]).encode('utf-8')
+		    sys.stdout.write(wordWithSign)
         print ('\n')
         return True
 
