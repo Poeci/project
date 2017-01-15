@@ -1,6 +1,8 @@
+# -*- coding: utf-8 -*-
 import Stanza
-import sys # uzywane do printowania bez entera xDD
+import sys # uzywane do printowania bez entera, encoding
 from random import randint
+import codecs
 
 class Poem(object):
     """description of class"""
@@ -44,7 +46,7 @@ class Poem(object):
             return False
         
         for i in range(0, self.howLong-1):
-            wordWithSign = (self.resultWords[i] + self.resultSigns[i])#.encode('utf-8')
+            wordWithSign = (self.resultWords[i] + self.resultSigns[i]).encode("utf-8")
             sys.stdout.write(wordWithSign)
         print ('\n')
         return True

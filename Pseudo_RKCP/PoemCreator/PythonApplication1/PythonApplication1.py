@@ -38,14 +38,21 @@ def InputGraph():
             connectionType = GetConnectionType(elements[2])
             graph[wordFrom].append((wordTo, connectionType));
 
-print("Making graph...")
-    
-reader = codecs.open('graph.txt', encoding='utf-8')
-for line in reader:
-    goodLine = line.rstrip() #rstrip usuwa znaki \n na koncach
-    goodLine = goodLine.replace(u'\ufeff', '')
-    lines.append(goodLine)  
 
+def ReadFromFile(fileName):
+    print('Reading from file: '+fileName)
+    reader = codecs.open(fileName, encoding='utf-8')
+    for line in reader:
+        goodLine = line.rstrip() #rstrip usuwa znaki \n na koncach
+        goodLine = goodLine.replace(u'\ufeff', '')
+        lines.append(goodLine)  
+
+print("Reading from files...")
+ReadFromFile('graphPoems.txt')
+ReadFromFile('graphTadeusz.txt')
+lines.append('<END>')
+
+print("Making graph...")
 InputGraph()
 
 print("Ready! Type enter to make poem")

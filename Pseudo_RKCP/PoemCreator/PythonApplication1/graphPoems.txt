@@ -93786,4 +93786,3 @@ stąpaj ostrożnie 0
 ostrożnie stąpasz 1
 stąpasz po 0
 po marzeniach 0
-<END>
