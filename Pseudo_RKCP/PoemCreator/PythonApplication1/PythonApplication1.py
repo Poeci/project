@@ -50,6 +50,8 @@ def ReadFromFile(fileName):
 print("Reading from files...")
 ReadFromFile('graphPoems.txt')
 ReadFromFile('graphTadeusz.txt')
+ReadFromFile('graphTadeuszDouble.txt')
+ReadFromFile('graphPoemsDouble.txt')
 lines.append('<END>')
 
 print("Making graph...")
