@@ -1,13 +1,13 @@
+# -*- coding: utf-8 -*-
 from collections import defaultdict
 import codecs
 from Poem import Poem
-from random import randint
+from random import randint, choice
 
 graph = defaultdict(list)
 dictionary = {}
 lineIndex = 0
 lines = []
-
 
 def GetConnectionType(number):
     switcher = {
@@ -30,27 +30,13 @@ def InputGraph():
         line = lines[lineIndex]   
         lineIndex+=1
         if line=='<END>':
-            break        
-        elements = line.split(" ")
-        numberFrom = int(elements[0])
-        numberTo = int(elements[1])
-        if numberFrom!=173 and numberTo!=173: # jebane podwojne spacje, w wierszach czesto wystepowaly :/    
-            connectionType = GetConnectionType(elements[2])
-            graph[numberFrom].append((numberTo, connectionType));
-
-def InputDefinitionOfWords():
-    while True:
-        global lineIndex
-        line = lines[lineIndex]
-        if line=="<TYPES>":
             break
-        lineIndex+=1
         elements = line.split(" ")
-        if len(elements)==1:
-            continue
-        number = int(elements[0])
-        word = elements[1]
-        dictionary[number] = word
+        if (len(elements)==3): # jebane podwojne spacje, w wierszach czesto wystepowaly :/    
+            wordFrom = elements[0]
+            wordTo = elements[1]
+            connectionType = GetConnectionType(elements[2])
+            graph[wordFrom].append((wordTo, connectionType));
 
 print("Making graph...")
     
@@ -61,21 +47,13 @@ for line in reader:
     lines.append(goodLine)  
 
 InputGraph()
-InputDefinitionOfWords()
 
 print("Ready! Type enter to make poem")
 
 while True:
     raw_input()
-    newPoem = Poem(30, graph, dictionary)
-    for i in range(0, len(dictionary)-1):
-        tmp = randint(0, len(dictionary)-1)
-        if (newPoem.Generate(tmp)):
+    newPoem = Poem(30, graph)
+    for i in range(0, len(graph)-1):
+        firstWord = choice(graph.keys())
+        if (newPoem.Generate(firstWord)):
             break
-
-
-
-
-
-
-print dictionary[2]
