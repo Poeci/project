@@ -2,7 +2,9 @@
 from collections import defaultdict
 import codecs
 from Poem import Poem
+from PoemSyllabes import PoemSyllabes
 from random import randint, choice
+import sys
 
 graph = defaultdict(list)
 dictionary = {}
@@ -59,10 +61,15 @@ InputGraph()
 
 print("Ready! Type enter to make poem")
 
-while True:
+''' while True:
     raw_input()
-    newPoem = Poem(30, graph)
+    newPoem = Poem(30, graph, 13)
     for i in range(0, len(graph)-1):
         firstWord = choice(graph.keys())
         if (newPoem.Generate(firstWord)):
-            break
+            break '''
+while True:
+    s = raw_input().decode(sys.stdin.encoding)
+    newPoem = PoemSyllabes(10, graph, 13)
+   # print newPoem.GetNumberOfSyllabes(s)
+    newPoem.Generate()
