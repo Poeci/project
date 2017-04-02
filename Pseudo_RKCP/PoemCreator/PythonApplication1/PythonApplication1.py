@@ -4,6 +4,7 @@ import codecs
 from Poem import Poem
 from PoemSyllabes import PoemSyllabes
 from random import randint, choice
+import Dictionary as d
 import sys
 
 graph = defaultdict(list)
@@ -49,15 +50,30 @@ def ReadFromFile(fileName):
         goodLine = goodLine.replace(u'\ufeff', '')
         lines.append(goodLine)  
 
+
+
+d.OpenDictionary()
+
 print("Reading from files...")
+ReadFromFile('graphProbny.txt')
 ReadFromFile('graphPoems.txt')
 ReadFromFile('graphTadeusz.txt')
 ReadFromFile('graphTadeuszDouble.txt')
-ReadFromFile('graphPoemsDouble.txt')
+#ReadFromFile('graphPoemsDouble.txt')
 lines.append('<END>')
 
 print("Making graph...")
 InputGraph()
+d.MakeStatistics(graph)
+#d.GetBestGrama(u'ponad')
+#d.GetNeighbors(u'ponad')
+'''for s in stats:
+    if stats[s]>5:
+        print(s)
+        print (stats[s])
+        print()
+        print()'''
+
 
 print("Ready! Type enter to make poem")
 
@@ -72,4 +88,6 @@ while True:
     s = raw_input().decode(sys.stdin.encoding)
     newPoem = PoemSyllabes(10, graph, 13)
    # print newPoem.GetNumberOfSyllabes(s)
+    #poem = Poem(20, graph)
+    #poem.Generate()
     newPoem.Generate()

@@ -5,6 +5,7 @@ from collections import defaultdict
 import sys # uzywane do printowania bez entera, encoding
 from random import randint, choice
 import codecs
+import Dictionary as d
 
 class PoemSyllabes(object):
     """description of class"""
@@ -33,9 +34,6 @@ class PoemSyllabes(object):
                     number-=1
         return number
 
-
-
-
     def Dfs(self, currentWord, size, numberOfStanza, allSyllabes):
         currentWordSyllabes = self.GetNumberOfSyllabes(currentWord)
         allSyllabes+=currentWordSyllabes
@@ -43,11 +41,12 @@ class PoemSyllabes(object):
             self.resultWords[numberOfStanza][size-1] = currentWord
             return True
 
-        numberOfNeighbors = len(self.graph[currentWord])
+        neighbors = d.GetNeighbors(currentWord)
+        numberOfNeighbors = len(neighbors)
         for i in range (0, 2*numberOfNeighbors-1):
             randomNumberOfNeighbor = randint(0, numberOfNeighbors-1)
-            neighbor = self.graph[currentWord][randomNumberOfNeighbor][0]
-            sign = self.graph[currentWord][randomNumberOfNeighbor][1]
+            neighbor = neighbors[randomNumberOfNeighbor]
+            sign = ' ';
             newSyllabes = self.GetNumberOfSyllabes(neighbor)
             if sign=='\n' or newSyllabes+allSyllabes>self.syllabes: continue ## nie chcemy brac nowej linii
             if self.visitedBy[numberOfStanza].get(neighbor, "!@#nothin")!=currentWord:  
@@ -82,8 +81,8 @@ class PoemSyllabes(object):
                 if (self.resultWords[i][x+1]==-1): break
                 wordWithSign = (self.resultWords[i][x] + self.resultSigns[i][x])#.encode("utf-8")
                 lastWasDot = self.resultSigns[i][x]=='.'
-                sys.stdout.write("".join(c.upper() if (i == 0 and x == 0) or lastWasDot else c for i, c in enumerate(wordWithSign.encode("utf-8"))))
-            sys.stdout.write(self.resultWords[i][x].encode("utf-8"))
+                sys.stdout.write("".join(c.upper() if (i == 0 and x == 0) or lastWasDot else c for i, c in enumerate(wordWithSign)))#.encode("utf-8"))))
+            sys.stdout.write(self.resultWords[i][x])#.encode("utf-8"))
             r = randint(0, 1)
             if r==1 or i==self.numberOfStanzas-1: print('.')
             else: print (',')

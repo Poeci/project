@@ -2,7 +2,8 @@
 import Stanza
 from collections import defaultdict
 import sys # uzywane do printowania bez entera, encoding
-from random import randint
+from random import randint, choice
+import Dictionary as d
 import codecs
 
 class Poem(object):
@@ -34,7 +35,15 @@ class Poem(object):
         return False
 
 
-    def Generate(self, firstWord):
+    def GetFirstWord(self):
+        while True: #for i in range(0, len(graph)-1):
+            firstWord = choice(self.graph.keys())
+            for i in range(0, len(self.graph[firstWord])):
+                if self.graph[firstWord][i][1]=='\n':             
+                    return self.graph[firstWord][i][0]
+
+    def Generate(self):
+        firstWord = self.GetFirstWord()
         self.resultWords = [None] * self.howLong
         self.resultSigns = [None] * self.howLong
         self.resultWords[self.howLong-1] = -1
